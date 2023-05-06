@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NQ8iPXWO9wZOm1e6AsLTriT/r6fSjp1gMiuoVBGXxgGNMxt0zV5M2p2lw4HX3A+NRcM6VrKEm3AZtMzQk8P8ug==",
+  "dgSpecHash": "/wBjOTvOdSXEwi4npg3Y7+JxzIO0zd7AZxQRAnFKDQHuYU42c/XY9O+r51NBEYY7Y19zZ7HpfMKNTslyB7NjbA==",
   "success": true,
   "projectFilePath": "D:\\Github\\CheckoutSystem\\CheckoutSystem\\CheckoutSystem\\CheckoutSystem.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\glitc\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
