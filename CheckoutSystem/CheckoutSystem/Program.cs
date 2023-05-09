@@ -45,24 +45,6 @@ namespace CheckoutSystem
             string filename = "inventory.json";
             string path = Path.Combine(Environment.CurrentDirectory, @"", filename);
 
-            InventoryItem test3 = new InventoryItem();
-            test3.id = 519284029;
-            test3.name = "Oranges";
-            test3.cost = 6.99f;
-            test3.description = "A bag of oranges";
-
-            InventoryItem test = new InventoryItem();
-            test.id = 123456789;
-            test.name = "potatos";
-            test.cost = 12.99f;
-            test.description = "A bag of 12 potatos";
-
-            InventoryItem test2 = new InventoryItem();
-            test2.id = 5123123;
-            test2.name = "onions";
-            test2.cost = 5.00f;
-            test2.description = "A bag of onions";
-
             // Test of creating list of items to add to json list
             List<InventoryItem> testList = new List<InventoryItem>();
 
@@ -75,21 +57,21 @@ namespace CheckoutSystem
                 switch (i)
                 {
                     case 0:
-                        newItem.id = 123456789;
+                        newItem.id = 1000;
                         newItem.name = "potatos";
                         newItem.cost = 12.99f;
                         newItem.description = "A bag of 12 potatos";
                         newItem.quantity = 12;
                         break;
                     case 1:
-                        newItem.id = 519284029;
+                        newItem.id = 4000;
                         newItem.name = "Oranges";
                         newItem.cost = 6.99f;
                         newItem.description = "A bag of oranges";
                         newItem.quantity = 6;
                         break;
                     case 2:
-                        newItem.id = 5123123;
+                        newItem.id = 500;
                         newItem.name = "onions";
                         newItem.cost = 5.00f;
                         newItem.description = "A bag of onions";
@@ -140,11 +122,30 @@ namespace CheckoutSystem
             Console.WriteLine("There are this many items in the list: " + InventoryItemsList.Count);
             Console.WriteLine("There are this many items in the list: " + InventoryItemsList[0].name);
             Console.WriteLine("There are this many items in the list: " + InventoryItemsList[1].name);
-            Console.WriteLine("There are this many items in the list: " + InventoryItemsList[2].name);
+            //Console.WriteLine("There are this many items in the list: " + InventoryItemsList[2].name);
 
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
             Console.WriteLine("\n");
 
             data2.inventorySummary();
+
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+
+            Console.WriteLine("The index of search item is: " + data2.searchInventory(InventoryItemsList, 500));
+            Console.WriteLine("This item should be -1: " + data2.searchInventory(InventoryItemsList, 9801));
+
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+            Console.WriteLine("\n");
+
+            // Test of search, getting item index from the search and then editing this item with the edit method
+            int testIndex = data2.searchInventory(InventoryItemsList, 4000);
+            data2.editInventoryItem(InventoryItemsList, testIndex);
+
+
         }
     }
 }

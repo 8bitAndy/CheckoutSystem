@@ -91,6 +91,99 @@ namespace CheckoutSystem
             }
         }
 
+
+
+        // Will return the index of the item if it's in the list or return null if it doesn't exist
+        public int searchInventory(List<InventoryItem> itemList, int searchID)
+        {
+            int currentIndex = 0;
+            // Loop through list of items and check ID for our searchID
+            foreach(var item in itemList)
+            {
+                // If we find the item in our list of inventory then return the index to our calling function
+                if(item.id == searchID)
+                {
+                    return currentIndex;
+                }
+                currentIndex++;
+            }
+            return -1;
+        }
+
+        // Will return the index of the item if it's in the list or -1 if not in the list
+        // Uses a case sensitive string search term, searches for name of item
+        public int searchInventory(List<InventoryItem> itemList, string searchName)
+        {
+            int currentIndex = 0;
+            // Loop through list of items and check ID for our searchID
+            foreach (var item in itemList)
+            {
+                // If we find the item in our list of inventory then return the index to our calling function
+                if (item.name == searchName)
+                {
+                    return currentIndex;
+                }
+                currentIndex++;
+            }
+            return -1;
+        }
+
+        // Allows user to edit an inventory item
+        public void editInventoryItem(List<InventoryItem> itemList, int itemIndex)
+        {
+            Console.WriteLine("The current item details: ");
+            Console.WriteLine("Item ID: " + itemList[itemIndex].id);
+            Console.WriteLine("Item name: " + itemList[itemIndex].name);
+            Console.WriteLine("Item description: " + itemList[itemIndex].description);
+            Console.WriteLine("Item cost: " + itemList[itemIndex].cost);
+            Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity);
+
+            Console.WriteLine("\nItem name is currently: " + itemList[itemIndex].name);
+            Console.Write("Enter a new value or enter 'y' to keep the same value and move to next field: ");
+            string userInput = Console.ReadLine();
+            if (!(userInput.Equals("y") || userInput.Equals("Y")))
+            {
+                Console.WriteLine("Changing name");
+                itemList[itemIndex].name = userInput;
+            }
+
+            Console.WriteLine("\nItem description is currently: " + itemList[itemIndex].description);
+            Console.Write("Enter a new value or enter 'y' to keep the same value and move to next field: ");
+            userInput = Console.ReadLine();
+            if (!(userInput.Equals("y") || userInput.Equals("Y")))
+            {
+                Console.WriteLine("Changing descp");
+                itemList[itemIndex].description = userInput;
+            }
+
+            Console.WriteLine("\nItem cost is currently: " + itemList[itemIndex].cost);
+            Console.Write("Enter a new value or enter 'y' to keep the same value and move to next field: ");
+            userInput = Console.ReadLine();
+            if (!(userInput.Equals("y") || userInput.Equals("Y")))
+            {
+                Console.WriteLine("Changing price");
+                itemList[itemIndex].cost = float.Parse(userInput);
+                Console.WriteLine("Changed price");
+            }
+
+            Console.WriteLine("\nItem quantity is currently: " + itemList[itemIndex].quantity);
+            Console.Write("Enter a new value or enter 'y' to keep the same value and move to next field: ");
+            userInput = Console.ReadLine();
+            if (!(userInput.Equals("y") || userInput.Equals("Y")))
+            {
+                Console.WriteLine("Changing quantity");
+                itemList[itemIndex].quantity = Convert.ToInt32(userInput);
+            }
+
+
+            Console.WriteLine("\nThe updated item details: ");
+            Console.WriteLine("Item ID: " + itemList[itemIndex].id);
+            Console.WriteLine("Item name: " + itemList[itemIndex].name);
+            Console.WriteLine("Item description: " + itemList[itemIndex].description);
+            Console.WriteLine("Item cost: " + itemList[itemIndex].cost);
+            Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity);
+        }
+
         public void writeJSON()
         {
 
