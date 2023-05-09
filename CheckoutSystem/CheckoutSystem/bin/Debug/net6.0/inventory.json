@@ -1,14 +1,1 @@
-[
-    {
-    "id": "516876478",
-    "name":  "Tomatos",
-    "description":  "",
-    "cost": "5.15"
-  },
-  {
-    "id": "583920375",
-    "name":  "Watermelon",
-    "description":  "Whole watermelon, fresh from farm",
-    "cost": "6.00"
-  }
-]
+[{"id":519284029,"name":"Oranges","description":"A bag of oranges","cost":6.99},{"id":123456789,"name":"potatos","description":"A bag of 12 potatos","cost":12.99},{"id":5123123,"name":"onions","description":"A bag of onions","cost":5.0}]

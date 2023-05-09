@@ -46,5 +46,10 @@ namespace CheckoutSystem
                 }
             }
         }
+
+        public void writeJSON()
+        {
+
+        }
     }
 }
