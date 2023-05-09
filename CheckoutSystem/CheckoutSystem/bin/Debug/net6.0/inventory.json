@@ -1,1 +1,1 @@
-[{"id":519284029,"name":"Oranges","description":"A bag of oranges","cost":6.99},{"id":123456789,"name":"potatos","description":"A bag of 12 potatos","cost":12.99},{"id":5123123,"name":"onions","description":"A bag of onions","cost":5.0}]
+[{"id":123456789,"name":"potatos","description":"A bag of 12 potatos","cost":12.99,"quantity":12},{"id":519284029,"name":"Oranges","description":"A bag of oranges","cost":6.99,"quantity":6},{"id":5123123,"name":"onions","description":"A bag of onions","cost":5.0,"quantity":3}]
