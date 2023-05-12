@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,59 +36,51 @@ namespace CheckoutSystem
                     // Check file contains items in it, then loop through and print values
                     if (InventoryList.Count > 0)
                     {
+                        Console.WriteLine("Fgood");
                         return InventoryList;
                     }
                     else
                     {
                         Console.WriteLine("File is empty");
-                        return null;
+                        return InventoryList;
                     }
                 }
-                return null;
+                else
+                {
+                    List<InventoryItem> InventoryList = new List<InventoryItem>();
+                    Console.WriteLine("list was empty");
+                    return InventoryList;
+                }
             }
         }
 
-        public void inventorySummary()
+        public void inventorySummary(List<InventoryItem> InventoryList)
         {
-            // Get the JSON file for inventory and assign it to a variable
-            using (StreamReader r = new StreamReader(this.path))
+            // Check file contains items in it, then loop through and print values
+            if (InventoryList.Count > 0)
             {
-                // Get all data from JSON file and assign to string
-                string json = r.ReadToEnd();
-
-                // Prevents exception with empty JSON file
-                if (!string.IsNullOrEmpty(json))
+                Console.WriteLine("Current Inventory List:\n");
+                int currentIndex = 0;
+                float totalCost = 0.00f;
+                foreach (var output in InventoryList)
                 {
-                    // Ignore error, some issue with Newtonsoft package
-                    List<InventoryItem> InventoryList = JsonConvert.DeserializeObject<List<InventoryItem>>(json);
-
-                    // Check file contains items in it, then loop through and print values
-                    if (InventoryList.Count > 0)
-                    {
-                        Console.WriteLine("Current Inventory List:");
-                        int currentIndex = 0;
-                        float totalCost = 0.00f;
-                        foreach (var output in InventoryList)
-                        {
-                            // Print the listing number of the current item so staff can access it
-                            Console.WriteLine((currentIndex + 1) + ". ");
-                            Console.WriteLine("ID: " + output.id);
-                            Console.WriteLine("Item name: " + output.name);
-                            Console.WriteLine("Price: " + output.cost);
-                            Console.WriteLine("Description: " + output.description);
-                            Console.WriteLine("Description: " + output.quantity + "\n");
-                            currentIndex++;
-                            totalCost += (output.cost * output.quantity);
-                        }
-                        Console.WriteLine("Total value of inventory is: $" + totalCost);
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("File is empty");
-                        Console.ReadLine();
-                    }
+                    // Print the listing number of the current item so staff can access it
+                    Console.WriteLine((currentIndex + 1) + ". ");
+                    Console.WriteLine("ID: " + output.id);
+                    Console.WriteLine("Item name: " + output.name);
+                    Console.WriteLine("Price: " + output.cost);
+                    Console.WriteLine("Description: " + output.description);
+                    Console.WriteLine("Description: " + output.quantity + "\n");
+                    currentIndex++;
+                    totalCost += (output.cost * output.quantity);
                 }
+                Console.WriteLine("Total value of inventory is: $" + String.Format("{0:0.00}", totalCost));
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("File is empty");
+                Console.ReadLine();
             }
         }
 
@@ -107,6 +100,7 @@ namespace CheckoutSystem
                 }
                 currentIndex++;
             }
+            // Search item was not found
             return -1;
         }
 
@@ -184,9 +178,44 @@ namespace CheckoutSystem
             Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity);
         }
 
-        public void writeJSON()
-        {
 
+        // Changes quantity of stock by either adding or subtracting from it
+        // Requires the index of the item in the inventory list
+        public List<InventoryItem> changeQuantityLevel(List<InventoryItem> itemList, int itemIndex)
+        {
+            Console.WriteLine("\nThe current item details: ");
+            Console.WriteLine("Item ID: " + itemList[itemIndex].id);
+            Console.WriteLine("Item name: " + itemList[itemIndex].name);
+            Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity);
+
+            Console.Write("Enter the new quantity for the current item: ");
+            string userInput = Console.ReadLine();
+            itemList[itemIndex].quantity = Convert.ToInt32(userInput);
+
+
+            Console.WriteLine("\nThe updated item details: ");
+            Console.WriteLine("Item ID: " + itemList[itemIndex].id);
+            Console.WriteLine("Item name: " + itemList[itemIndex].name);
+            Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity + "\n");
+
+            return itemList;
+        }
+
+
+        public void saveJSON(List<InventoryItem> itemList)
+        {
+            // Convert the Inventoryitem list to a JSON format string
+            var jsonString = JsonConvert.SerializeObject(itemList);
+
+            // Create an array to add the json string to, needed to prevent errors when writing to file
+            JArray testArray = JArray.Parse(jsonString);
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(this.path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, testArray);
+            }
         }
     }
 }
