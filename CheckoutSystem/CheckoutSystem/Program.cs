@@ -29,9 +29,10 @@ namespace CheckoutSystem
                     Console.WriteLine("Enter a menu option:");
                     Console.WriteLine("1. Review Inventory");
                     Console.WriteLine("2. Add item to inventory");
-                    Console.WriteLine("3. Take item from inventory");
-                    Console.WriteLine("4. Calculate total value of inventory");
-                    Console.WriteLine("5. Exit program");
+                    Console.WriteLine("3. Edit inventory item");
+                    Console.WriteLine("4. Change stock quantity level");
+                    Console.WriteLine("5. Calculate total value of inventory");
+                    Console.WriteLine("6. Exit program");
                     Console.Write("Your choice: ");
                     menuChoice = Convert.ToInt32(Console.ReadLine());
                     Console.Clear();
@@ -98,15 +99,82 @@ namespace CheckoutSystem
 
                             break;
                         case 3:
-                            // CHANGE QUANTITY OF ITEM IN LIST
+                            try
+                            {
+                                Console.Clear();
+                                data.listInventoryItems(InventoryItemsList);
+                                Console.Write("\nEnter the ID number of the item you wish to edit: ");
+                                int editChoice = Convert.ToInt32(Console.ReadLine());
+                                // Search the inventory list for the item and get the index
+                                int itemIndex = data.searchInventory(InventoryItemsList, editChoice);
+                                if ( itemIndex != -1)
+                                {
+                                    Console.Clear();
+                                    InventoryItemsList = data.editInventoryItem(InventoryItemsList, itemIndex);
+                                    data.saveJSON(InventoryItemsList);
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Error item ID not found");
+                                }
+                                
+                            }
+                            catch (System.FormatException e)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Error, " + e.Message);
+                            }
+                            finally
+                            {
+                                Console.WriteLine("Press [ENTER] to return to menu");
+                                Console.ReadLine();
+                            }
                             break;
                         case 4:
-                            // CALCULATE TOTAL COST OF INVENTORY 
+                            try
+                            {
+                                Console.Clear();
+                                data.listInventoryItems(InventoryItemsList);
+                                Console.Write("\nEnter the ID number of the item you wish to change the quantity of: ");
+                                int editChoice = Convert.ToInt32(Console.ReadLine());
+                                // Search the inventory list for the item and get the index
+                                int itemIndex = data.searchInventory(InventoryItemsList, editChoice);
+                                if (itemIndex != -1)
+                                {
+                                    Console.Clear();
+                                    InventoryItemsList = data.changeQuantityLevel(InventoryItemsList, itemIndex);
+                                    data.saveJSON(InventoryItemsList);
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Error item ID not found");
+                                }
+
+                            }
+                            catch (System.FormatException e)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Error, " + e.Message);
+                            }
+                            finally
+                            {
+                                Console.WriteLine("Press [ENTER] to return to menu");
+                                Console.ReadLine();
+                            }
+                            break;
                         case 5:
+                            Console.Clear();
+                            Console.WriteLine("There are a total of " + data.calculateInventoryAmount(InventoryItemsList) + " items in inventory worth a total of $" + String.Format("{0:0.00}", data.calculateInventoryValue(InventoryItemsList)));
+                            Console.WriteLine("Press [ENTER] to return to menu");
+                            Console.ReadLine();
+                            break;
+                        case 6:
                             break;
                     }
 
-                    if(menuChoice == 5)
+                    if(menuChoice == 6)
                     {
                         break;
                     }

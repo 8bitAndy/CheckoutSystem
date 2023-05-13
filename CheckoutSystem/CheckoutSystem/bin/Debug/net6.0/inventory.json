@@ -1,1 +1,1 @@
-[{"id":900,"name":"Ketchup","description":"A bottle of ketchup","cost":6.99,"quantity":4},{"id":800,"name":"Marmalade","description":"A jar of organic marmalade, farm-fresh","cost":12.59,"quantity":20}]
+[{"id":100,"name":"Royal Potato","description":"An organic king potato","cost":4.99,"quantity":8},{"id":900,"name":"Bag of grapes","description":"A bag of fresh grapes","cost":14.99,"quantity":15},{"id":600,"name":"Bread","description":"A loaf of fresh bread","cost":4.99,"quantity":6},{"id":690,"name":"Eggs","description":"12 eggs","cost":12.99,"quantity":15}]

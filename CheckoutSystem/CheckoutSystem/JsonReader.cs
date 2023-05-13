@@ -70,7 +70,7 @@ namespace CheckoutSystem
                     Console.WriteLine("Item name: " + output.name);
                     Console.WriteLine("Price: " + output.cost);
                     Console.WriteLine("Description: " + output.description);
-                    Console.WriteLine("Description: " + output.quantity + "\n");
+                    Console.WriteLine("Quantity: " + output.quantity + "\n");
                     currentIndex++;
                     totalCost += (output.cost * output.quantity);
                 }
@@ -81,6 +81,27 @@ namespace CheckoutSystem
             {
                 Console.WriteLine("File is empty");
                 Console.ReadLine();
+            }
+        }
+
+        public void listInventoryItems(List<InventoryItem> InventoryList)
+        {
+            // Check file contains items in it, then loop through and print values
+            if (InventoryList.Count > 0)
+            {
+                Console.WriteLine("Current items in inventory:\n");
+                int currentIndex = 0;
+
+                foreach (var output in InventoryList)
+                {
+                    // Print the listing number of the current item so staff can access it
+                    Console.WriteLine("ID: " + output.id + " Name: " + output.name);
+                    currentIndex++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("File is empty");
             }
         }
 
@@ -123,7 +144,7 @@ namespace CheckoutSystem
         }
 
         // Allows user to edit an inventory item
-        public void editInventoryItem(List<InventoryItem> itemList, int itemIndex)
+        public List<InventoryItem> editInventoryItem(List<InventoryItem> itemList, int itemIndex)
         {
             Console.WriteLine("The current item details: ");
             Console.WriteLine("Item ID: " + itemList[itemIndex].id);
@@ -176,6 +197,8 @@ namespace CheckoutSystem
             Console.WriteLine("Item description: " + itemList[itemIndex].description);
             Console.WriteLine("Item cost: " + itemList[itemIndex].cost);
             Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity);
+
+            return itemList;
         }
 
 
@@ -199,6 +222,33 @@ namespace CheckoutSystem
             Console.WriteLine("Item quantity: " + itemList[itemIndex].quantity + "\n");
 
             return itemList;
+        }
+
+
+        public float calculateInventoryValue(List<InventoryItem> itemList)
+        {
+            float totalValue = 0.00f;
+            int totalItemCount = 0;
+
+            foreach (InventoryItem item in itemList)
+            {
+                totalValue += (item.cost * item.quantity);
+                totalItemCount += item.quantity;
+            }
+            
+            return totalValue;
+        }
+
+        public int calculateInventoryAmount(List<InventoryItem> itemList)
+        {
+            int totalItemCount = 0;
+
+            foreach (InventoryItem item in itemList)
+            {
+                totalItemCount += item.quantity;
+            }
+
+            return totalItemCount;
         }
 
 
